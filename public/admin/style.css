@@ -1,0 +1,19 @@
+.linkbtn {
+    background:none!important;
+    color:inherit;
+    border:none;
+    padding:0!important;
+    font: inherit;
+}
+
+.title{
+    text-align: center;
+  }
+  
+  .titleHover p{
+    display:none
+  }
+  
+  .titleHover:hover p{
+    display:inline
+  }
