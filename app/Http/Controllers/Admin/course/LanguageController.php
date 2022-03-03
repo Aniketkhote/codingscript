@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\Admin\course;
 
 use App\Http\Controllers\Controller;
+use App\Model\user\course\language;
 use Illuminate\Http\Request;
 
 class LanguageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * desclay a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $languages = language::all();
+        return view('admin/course/language/language', compact('languages'));
     }
 
     /**
@@ -24,7 +26,8 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        //
+        $languages = language::all();
+        return view('admin/course/language/language', compact('languages'));
     }
 
     /**
@@ -35,11 +38,34 @@ class LanguageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'desc' => 'required',
+            'img' => 'required',
+        ]);
+
+        if($request->hasFile('img'))
+        {
+            $img = $request -> img -> store('public');
+        }
+
+        $slug =  strtolower(str_replace(' ', '_', $request -> name));
+
+        if(language::all()->where('slug',$slug)->count() < 1)
+        {
+            $language = new language();
+            $language -> name = $request -> name;
+            $language -> slug = $slug;
+            $language -> desc = $request -> desc;
+            $language -> img = $img;
+            $language -> save();
+            return redirect()->route('language.index')->with('success','Language created successfully!');
+        }
+        return redirect()->route('language.index')->with('danger','Language already exists');
     }
 
     /**
-     * Display the specified resource.
+     * desclay the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -57,7 +83,10 @@ class LanguageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $languages = language::all();
+        $language = language::where('id', $id)->first();
+
+        return view('admin/course/language/edit', compact('language', 'languages'));
     }
 
     /**
@@ -69,7 +98,30 @@ class LanguageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this -> validate($request, [
+            'name' => 'required',
+            'desc' => 'required',
+            'img' => 'required',
+        ]);
+
+        if($request->hasFile('img'))
+        {
+            $img = $request -> img -> store('public');
+        }
+
+        $slug =  strtolower(str_replace(' ', '_', $request -> name));
+
+        if(language::all()->where('slug',$slug)->count() < 1)
+        {
+            $language = language::find($id);
+            $language -> name = $request -> name;
+            $language -> slug = $slug;
+            $language -> desc = $request -> desc;
+            $language -> img = $img;
+            $language -> save();
+            return redirect()->route('language.index')->with('success','Language updated successfully!');
+        }
+        return redirect()->route('language.index')->with('danger','Language already exists');
     }
 
     /**
@@ -80,6 +132,7 @@ class LanguageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        language::where('id', $id)->delete();
+        return redirect()->back()->with('success','Language deleted successfully!');
     }
 }

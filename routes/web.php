@@ -21,33 +21,41 @@ Route::group(['namespace' => 'User'], function () {
     Route::get('blog/category/{category}', 'Blog\PostController@category')->name('category');
 
     Route::get('course', 'Course\HomeController@index');
-    Route::get('course/{course}', 'Course\HomeController@detail');
-
+    Route::get('course/{course}', 'Course\HomeController@course')->name('course');
+    Route::get('course/{course}/{lesson}', 'Course\HomeController@lesson')->name('lesson');
 });
 
 
-Route::group(['namespace' => 'Admin' , 'middleware' => 'auth:admin'], function(){
-    Route::get('admin/dashboard','DashboardController@index');
-    
+Route::group(['namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
+    Route::get('admin/dashboard', 'DashboardController@index');
+
     // Blog Posts Routes
     Route::resource('admin/post', 'Blog\PostController');
     Route::post('admin/post/image_upload', 'Blog\PostController@upload')->name('upload');
-    
+
     // Blog Tag Routes
     Route::resource('admin/tag', 'Blog\TagController');
-    
+
     // Blog Category Routes
     Route::resource('admin/category', 'Blog\CategoryController');
 
     // Blog Comment Routes
     Route::resource('admin/comment', 'Blog\CommentController');
-    Route::get('admin/comment/{id}/{status}', 'Blog\CommentController@status')->name('comment.status');
 
     // Course Routes
     Route::resource('admin/course', 'course\CourseController');
 
     // Course Category Routes
     Route::resource('admin/course-category', 'course\CourseCategoryController');
+
+    // Course Language Routes
+    Route::resource('admin/language', 'course\LanguageController');
+
+    // Course Language Routes
+    Route::resource('admin/lesson', 'course\LessonController');
+
+    // Forum Category Routes
+    Route::resource('admin/forum-category', 'Forum\ForumCategoryController');
 
     // User Routes
     Route::resource('admin/user', 'Blog\UserController');
@@ -57,12 +65,11 @@ Route::group(['namespace' => 'Admin' , 'middleware' => 'auth:admin'], function()
 
     // Permission Routes
     Route::resource('admin/permission', 'Blog\permissionController');
-
 });
 
- // Admin Auth
- Route::get('admin/login', 'Admin\Auth\LoginController@showAdminLoginForm')->name('admin.login');
- Route::post('admin/login', 'Admin\Auth\LoginController@adminLogin');
+// Admin Auth
+Route::get('admin/login', 'Admin\Auth\LoginController@showAdminLoginForm')->name('admin.login');
+Route::post('admin/login', 'Admin\Auth\LoginController@adminLogin');
 
 
 Auth::routes();

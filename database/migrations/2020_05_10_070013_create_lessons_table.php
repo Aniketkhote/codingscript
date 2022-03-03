@@ -18,9 +18,8 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('body');
-            $table->integer('course_id');
-            $table->integer('category_id');
-            $table->integer('language_id');            
+            $table->integer('order');
+            $table->integer('course_id');          
             $table->timestamps();
         });
     }

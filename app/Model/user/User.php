@@ -5,11 +5,10 @@ namespace App\Model\user;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravelista\Comments\Commenter;
 
 class User extends Authenticatable
 {
-    use Notifiable, Commenter;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -37,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function courses()
+    {
+        return $this->belongsToMany('App\Model\user\course\course', 'course_users')->withTimestamps();
+    }
 }

@@ -21,8 +21,10 @@ class CreateCoursesTable extends Migration
             $table->string('img');
             $table->integer('lang');
             $table->string('level');
+            $table->string('price');
             $table->boolean('course_type');
             $table->integer('category');
+            $table->integer('instructor');
             $table->timestamps();
         });
     }

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin\course;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\user\course\lesson;
+use App\Model\user\course\course;
+use App\Model\user\course\course_category;
 
 class LessonController extends Controller
 {
@@ -14,7 +17,8 @@ class LessonController extends Controller
      */
     public function index()
     {
-        //
+        $lessons = lesson::all();
+        return view('admin/course/lesson/show', compact('lessons'));
     }
 
     /**
@@ -24,7 +28,9 @@ class LessonController extends Controller
      */
     public function create()
     {
-        //
+        $lessons = lesson::all();
+        $courses = course::all();
+        return view('admin/course/lesson/new', compact('lessons', 'courses'));
     }
 
     /**
@@ -35,7 +41,28 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'slug' => 'required',
+            'course' => 'required',
+            'body' => 'required',
+            'order' => 'required',
+        ]);
+
+        $slug =  strtolower(str_replace(' ', '_', $request -> title));
+
+        if(lesson::all()->where('slug',$slug)->count() < 1)
+        {
+            $lesson = new lesson();
+            $lesson -> title = $request -> title;
+            $lesson -> slug = $slug;
+            $lesson -> course_id = $request -> course;
+            $lesson -> body = $request -> body;
+            $lesson -> order = $request -> order;
+            $lesson -> save();
+            return redirect()->route('lesson.index')->with('success','Lesson created successfully!');
+        }
+        return redirect()->route('lesson.index')->with('danger','Lesson already exists');
     }
 
     /**
@@ -57,7 +84,10 @@ class LessonController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lesson = lesson::where('id', $id)->first();
+        $courses = course::all();
+
+        return view('admin/course/lesson/edit', compact('lesson', 'courses'));
     }
 
     /**
@@ -69,7 +99,22 @@ class LessonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'slug' => 'required',
+            'course' => 'required',
+            'body' => 'required',
+            'order' => 'required',
+        ]);
+
+        $lesson = lesson::find($id);
+            $lesson -> title = $request -> title;
+            $lesson -> slug = $request -> slug;
+            $lesson -> course_id = $request -> course;
+            $lesson -> body = $request -> body;
+            $lesson -> order = $request -> order;
+            $lesson -> save();
+            return redirect()->route('lesson.index')->with('success','Lesson Updated successfully!');
     }
 
     /**
@@ -80,6 +125,13 @@ class LessonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        lesson::where('id', $id)->delete();
+        return redirect()->back()->with('success','Lesson deleted successfully!');
+    }
+
+    public static function LessonCourse($id){
+        $lessonCourse = lesson::where('course_id', $id)->first();
+        $course = course::all()->where('id',$lessonCourse->course_id)->first();
+        return $course->name;
     }
 }

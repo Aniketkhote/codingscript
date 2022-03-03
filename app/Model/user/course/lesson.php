@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class lesson extends Model
 {
-    //
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

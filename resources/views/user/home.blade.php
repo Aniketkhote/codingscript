@@ -12,7 +12,7 @@
                 <a class="btn btn-outline-light pr-3 pl-3" href="/course">View Courses</a>
             </div>
 
-            <img src="{{ asset('user/img/code.svg') }}" alt="" class="img col-md-6">
+            <img src="{{ asset('user/img/code.svg') }}" alt="course" class="img col-md-6">
         </div>
     </div>
 </div>
@@ -20,7 +20,7 @@
 <div class="discussion col-md-12">
   <div class="container">
       <div class="row">
-        <img src="{{ asset('user/img/discussion.svg') }}" alt="" class="img mt-5 col-md-6">
+        <img src="{{ asset('user/img/discussion.svg') }}" alt="discussion" class="img mt-5 col-md-6">
 
           <div class="text my-auto text-center col-md-6">
               <h1>Join The Discussions</h1>
@@ -40,7 +40,7 @@
               <a class="btn btn-outline-light pr-3 pl-3" href="/blog">Read Now</a>
             </div>
 
-          <img src="{{ asset('user/img/undraw_researching_22gp.svg') }}" alt="" class="img mt-5 col-md-6">
+          <img src="{{ asset('user/img/blog.svg') }}" alt="blog" class="img mt-5 col-md-6">
       </div>
   </div>
 </div>

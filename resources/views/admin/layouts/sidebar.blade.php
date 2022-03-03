@@ -1,6 +1,4 @@
-<?php
-use App\Http\Controllers\Admin\Blog\CommentController;
-?>
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -78,17 +76,6 @@ use App\Http\Controllers\Admin\Blog\CommentController;
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="/admin/comment" class="nav-link {{ Request::path() == 'admin/comment' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-comment"></i>
-                        <p>
-                            Comment
-                            <span class="badge badge-warning right">
-                                <?php echo $totalPendingComment = CommentController::totalPendingComment() ?>
-                            </span>
-                        </p>
-                    </a>
-                </li>
                 <li class="nav-header">Course</li>
                 <li class="nav-item has-treeview">
                     <a href="" class="nav-link">
@@ -143,7 +130,7 @@ use App\Http\Controllers\Admin\Blog\CommentController;
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="/admin/lesson" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Lessons
@@ -151,7 +138,7 @@ use App\Http\Controllers\Admin\Blog\CommentController;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('lesson.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     New
@@ -159,6 +146,15 @@ use App\Http\Controllers\Admin\Blog\CommentController;
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-header">Forum</li>
+                <li class="nav-item">
+                    <a href="/admin/forum-category" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        <p>
+                            Forum Category
+                        </p>
+                    </a>
                 </li>
                 <li class="nav-header">Extra</li>
                 <li class="nav-item has-treeview">

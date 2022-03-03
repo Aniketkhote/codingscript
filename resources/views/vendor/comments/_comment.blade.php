@@ -6,9 +6,9 @@
 @else
   <li id="comment-{{ $comment->getKey() }}" class="media">
 @endif
-    <img class="mr-3 rounded-circle" src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}.jpg?s=64" alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
+    <i class="fa fa-user-circle fa-3x mr-3"></i>
     <div class="media-body">
-        <h5 class="mt-0 mb-1">{{ $comment->commenter->name ?? $comment->guest_name }} <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small></h5>
+        <h6 class="mt-0 mb-1">{{ $comment->commenter->name ?? $comment->guest_name }} <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small></h6>
         <div style="white-space: pre-wrap;">{!! $markdown->line($comment->comment) !!}</div>
 
         <div>

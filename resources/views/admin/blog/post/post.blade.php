@@ -31,7 +31,7 @@ use App\Http\Controllers\Admin\Blog\PostController;
                     <th class="col-md-6">Title</th>
                     <th>Author</th>
                     <th>Category</th>
-                    <th>Comment</th>
+                   
                 </tr>
             </thead>
             <tbody>
@@ -62,17 +62,6 @@ use App\Http\Controllers\Admin\Blog\PostController;
                                 </a>
                             @endforeach
                         </td>
-                        <td>
-                            <span class="badge badge-primary">
-                                <?php echo $commentCount = PostController::commentCount($post->id) ?>
-                            </span>
-                            <span class="badge badge-success">
-                                <?php echo $aprrovedCommentCount = PostController::aprrovedCommentCount($post->id) ?>
-                            </span>
-                            <span class="badge badge-warning">
-                                <?php echo $pendingCommentCount = PostController::pendingCommentCount($post->id) ?>
-                            </span>
-                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -82,7 +71,6 @@ use App\Http\Controllers\Admin\Blog\PostController;
                     <th>Name</th>
                     <th>Author</th>
                     <th>Catgory</th>
-                    <th>Comment</th>
                 </tr>
             </tfoot>
         </table>

@@ -17,7 +17,7 @@
         'guest_commenting' => true
     ])
 @else
-    <div class="card mb-2">
+    <div class="card mb-2 mt-2">
         <div class="card-body">
             <h5 class="card-title">Authentication required</h5>
             <p class="card-text">You must log in to post a comment.</p>

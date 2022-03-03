@@ -1,2 +1,5 @@
 User-agent: *
 Disallow:
+
+
+sitemap : https://www.codingscript.in/sitemap.xml

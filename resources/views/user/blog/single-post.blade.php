@@ -38,30 +38,32 @@
                                 <div>
                                     {!! htmlspecialchars_decode($post -> body) !!}
                                 </div>
-                                <hr>
-                                <h5>Tags Clouds</h5>
-                                @foreach($post -> tags as $tag)
-                                    <span class="tag">
-                                        <a href="{{ route('tag', $tag) }}">
-                                            {{ $tag -> name }}
-                                        </a>
-                                    </span>
-                                @endforeach
+                                @if (count($post -> tags) > 0)
+                                    <hr>
+                                    <h5>Tags Clouds</h5>
+                                    @foreach($post -> tags as $tag)
+                                        <span class="tag">
+                                            <a href="{{ route('tag', $tag) }}">
+                                                {{ $tag -> name }}
+                                            </a>
+                                        </span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
 
                     <div class="blog-grids">
                         <div class="grid">
-                            <div class="author-profile float-left">
+                            <div class="author-profile col-md-2 float-left">
                                 <?php $getAuthorInfo = SinglePostController::getAuthorInfo($post->posted_by) ?>
                                 @if ($getAuthorInfo -> image == '')
-                                    <img src="{{asset('admin/img/default.jpg')}}" width="100px" height="100px" class="rounded-circle" alt="Cinque Terre">
+                                    <img src="{{asset('admin/img/default.jpg')}}" width="100px" height="100px" class="rounded-circle" alt="{{$getAuthorInfo -> name}}">
                                 @else
-                                    <img src="{{ Storage::disk('local')->url($getAuthorInfo -> image)}}" width="100px" height="100px" class="rounded-circle" alt="Cinque Terre">
+                                    <img src="{{ Storage::disk('local')->url($getAuthorInfo -> image)}}" width="100px" height="100px" class="rounded-circle" alt="{{$getAuthorInfo -> name}}">
                                 @endif
                             </div>
-                            <div class="author-bio offset-2 pl-3">
+                            <div class="author-bio col-md-10">
                                 <h5>{{ $getAuthorInfo -> name }}</h5>
                                 <p class="text-muted">{{ $getAuthorInfo -> description }}</p>
                                 <div class="social-widget">
@@ -83,14 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="comment">
-                        @comments([
-                        'model' => $post,
-                        'approved' => true
-                        ])
-                    </div>
+                    </div>  
                 </div>
 
                 <div class="sidebar col-md-4">
